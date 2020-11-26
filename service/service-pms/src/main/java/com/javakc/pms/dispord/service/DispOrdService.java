@@ -52,6 +52,15 @@ public class DispOrdService extends BaseService<DispOrdDao,DispOrd> {
             simpleSpecificationBuilder.and("orderName", ":", dispOrdQuery.getOrderName());
         }
 
+        // ## 创建时间 - 区间查询  ge大于等于  lt小于
+        if (!StringUtils.isEmpty(dispOrdQuery.getBeginDate())){
+            simpleSpecificationBuilder.and("gmtCreate", "ge",dispOrdQuery.getBeginDate()) ;
+        }
+
+        if (!StringUtils.isEmpty(dispOrdQuery.getEndDate())){
+            simpleSpecificationBuilder.and("gmtCreate", "lt",dispOrdQuery.getEndDate()) ;
+        }
+
         Page page =  dao.findAll(simpleSpecificationBuilder.getSpecification(), PageRequest.of(pageNum - 1, pageSize));
         return page;
     }

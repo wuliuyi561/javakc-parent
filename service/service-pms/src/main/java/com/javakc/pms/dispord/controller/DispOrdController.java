@@ -17,6 +17,7 @@ import java.util.Map;
 @Api(tags = "调度指令库控制器")
 @RestController
 @RequestMapping("/pms/dispord")
+// ## 解决跨域问题  协议、域名、端口有一个不一样都称为跨域
 @CrossOrigin
 
 public class DispOrdController {
@@ -37,7 +38,7 @@ public class DispOrdController {
      */
     @ApiOperation("带条件的分页查询 - 调度指令库")
     @PostMapping("{pageNum}/{pageSize}")
-        public APICODE findPageDispOrd(DispOrdQuery dispOrdQuery, @PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize){
+        public APICODE findPageDispOrd(@RequestBody(required = false) DispOrdQuery dispOrdQuery, @PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize){
         Page<DispOrd> page = dispOrdService.findPageDispOrd(dispOrdQuery, pageNum, pageSize);
         // ## 当前页的数据几个
         List<DispOrd> list = page.getContent();
